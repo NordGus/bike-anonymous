@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  dev:
+    build: .
+    image: bikes-anonymous-app
+    command: tail -f /dev/null
+    volumes:
+      - .:/var/app
+    ports:
+      - "3000:3000"
+    environment:
+      BIKES_ANONYMOUS_DATABASE_USERNAME: bikes_anonymous
+      BIKES_ANONYMOUS_DATABASE_PASSWORD: localdev
+      BIKES_ANONYMOUS_DATABASE_HOST: db
+      BIKES_ANONYMOUS_REDIS_URL: redis://redis
+      BIKES_ANONYMOUS_REDIS_PORT: 6379
+      BIKES_ANONYMOUS_REDIS_DATABASE: 0
+      BIKES_ANONYMOUS_SIDEKIQ_REDIS_URL: redis://redis
+      BIKES_ANONYMOUS_SIDEKIQ_REDIS_PORT: 6379
+      BIKES_ANONYMOUS_SIDEKIQ_REDIS_DATABASE: 0
+      BIKES_ANONYMOUS_SIDEKIQ_USERNAME: sidekiq
+      BIKES_ANONYMOUS_SIDEKIQ_PASSWORD: localdev
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    volumes:
+      - bikes-anonymous-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: bikes_anonymous
+      POSTGRES_PASSWORD: localdev
+
+  redis:
+    image: redis:6
+
+volumes:
+  bikes-anonymous-db:

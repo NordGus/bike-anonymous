@@ -1,0 +1,5 @@
+Redis.current = Redis.new(
+  url:  ENV['BIKES_ANONYMOUS_REDIS_URL'],
+  port: ENV['BIKES_ANONYMOUS_REDIS_PORT'],
+  db:   ENV['BIKES_ANONYMOUS_REDIS_DATABASE']
+)
