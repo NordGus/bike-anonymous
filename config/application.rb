@@ -36,7 +36,13 @@ module BikesAnonymous
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.session_store :cookie_store, key: '_bikes_anonymous_session'
+    config.session_store :redis_session_store,
+                         key: '_bikes_anonymous_session',
+                         redis: {
+                           expire_after: 14.days,
+                           url: "#{ENV['BIKES_ANONYMOUS_REDIS_URL']}:#{ENV['BIKES_ANONYMOUS_REDIS_PORT']}/#{ENV['BIKES_ANONYMOUS_REDIS_DATABASE']}",
+                           secure: Rails.env.production?
+                         }
 
     # Required for all session management (regardless of session_store)
     config.middleware.use ActionDispatch::Cookies

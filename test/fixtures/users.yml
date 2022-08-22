@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+owner:
+  username: BikesAnonymous
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  email: owner@ba.com
+  role: 0
+  token_version: 4
+
+partner:
+  username: PartnerCenter
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  email: partner@center.com
+  role: 1
+  token_version: 42
+
+cyclist_1:
+  username: Cyclist1
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  email: cyclist1@example.com
+  role: 2
+  token_version: 17
+
+cyclist_2:
+  username: Cyclist2
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  email: cyclist2@example.com
+  role: 2
+  token_version: 24

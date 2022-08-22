@@ -9,6 +9,10 @@
     ```shell
     docker compose exec dev bin/setup
     ```
+* Set `jwt_secret` credential
+    ```shell
+    rails credentials:edit
+    ```
 * Start development server
     1. Start bash session inside the container
         ```shell

@@ -10,4 +10,14 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def login_token(user)
+    post login_api_session_index_url,
+         params: {
+           username: users(user).username,
+           password: "secret"
+         }
+
+    response.parsed_body["jwt"]
+  end
 end

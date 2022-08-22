@@ -7,4 +7,14 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   mount Sidekiq::Web, at: "/sidekiq"
+
+  namespace :api do
+    resources :session, only: [], defaults: { format: :json } do
+      collection do
+        post :login
+        post :logout
+        post :refresh
+      end
+    end
+  end
 end
