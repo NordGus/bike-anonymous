@@ -16,5 +16,11 @@ Rails.application.routes.draw do
         post :refresh
       end
     end
+
+    namespace :license do
+      resources :files, only: [] do
+        post :ingest, on: :collection
+      end
+    end
   end
 end
