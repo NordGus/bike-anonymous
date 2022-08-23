@@ -20,6 +20,7 @@ services:
       BIKES_ANONYMOUS_SIDEKIQ_REDIS_DATABASE: 1
       BIKES_ANONYMOUS_SIDEKIQ_USERNAME: sidekiq
       BIKES_ANONYMOUS_SIDEKIQ_PASSWORD: localdev
+      BIKES_ANONYMOUS_APPLICATION_EMAIL: application@ba.com
     depends_on:
       - db
       - redis
