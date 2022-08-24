@@ -35,18 +35,16 @@ class License::FileCheckerJob
   end
 
   def notify_uploader(ingestion_file)
-    ::License::IngestionMailer
-      .with(user: ingestion_file.uploader)
-      .file_processed
-      .deliver_later
+    ::License::IngestionMailer.with(user_id: ingestion_file.uploader.id)
+                              .file_processed
+                              .deliver_later
   end
 
   def notify_owners(ingestion_file)
     User.where(role: :owner).each do |user|
-      ::License::IngestionMailer
-        .with(user: user, uploader: ingestion_file.uploader)
-        .file_processed
-        .deliver_later
+      ::License::IngestionMailer.with(user_id: user.id, uploader_id: ingestion_file.uploader.id)
+                                .file_processed
+                                .deliver_later
     end
   end
 
