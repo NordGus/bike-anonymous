@@ -24,6 +24,12 @@ services:
     depends_on:
       - db
       - redis
+      - mailcatcher
+
+  mailcatcher:
+    image: sj26/mailcatcher:v0.8.2
+    ports:
+      - "1080:1080"
 
   db:
     image: postgres:13
