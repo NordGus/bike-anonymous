@@ -2,12 +2,14 @@ class License::ProcessJob
   include Sidekiq::Job
 
   def perform(args)
-    user = User.find_or_initialize_by(username: args["username"])
+    cyclist = find_or_initialize_cyclist_user(args["username"])
 
-    create_user(user, args["password"], args["email"], args["role"].downcase) if user.new_record?
+    if cyclist.new_record?
+      create_cyclist_user(cyclist, args["password"], args["email"])
+    end
 
-    ::License::Id.create!(
-      cyclist: user,
+    create_license!(
+      cyclist: cyclist,
       registered_at: args["registered_at"],
       expires_at: args["expires_at"],
       code: args["code"],
@@ -17,12 +19,36 @@ class License::ProcessJob
     )
   end
 
-  def create_user(user, password, email, role)
+  def find_or_initialize_cyclist_user(username)
+    User.find_or_initialize_by(username: username)
+  end
+
+  def create_cyclist_user(user, password, email)
     user.password = password
     user.password_confirmation = password
     user.email = email
-    user.role = role
+    user.role = :cyclist
 
     user.save!
+  end
+
+  def create_license!(
+    cyclist:,
+    registered_at:,
+    expires_at:,
+    code:,
+    first_name:,
+    last_name:,
+    age:
+  )
+    ::License::Id.create!(
+      cyclist: cyclist,
+      registered_at: registered_at,
+      expires_at: expires_at,
+      code: code,
+      first_name: first_name,
+      last_name: last_name,
+      age: age
+    )
   end
 end
