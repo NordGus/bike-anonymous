@@ -30,3 +30,5 @@
 ## Pending Upgrades
 
 * Integrate an error service like Honeybadger, Airbrake, Rollbar, Bugsnag, Sentry, Exceptiontrap, Raygun, etc.
+* Write better email notifications.
+* Implement localizations for notifications and PDFs.

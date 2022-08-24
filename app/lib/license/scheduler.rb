@@ -1,6 +1,6 @@
 class License::Scheduler
   def self.ingest_file(file_id)
-    ::License::FileIngestionJob.perform_async(file.id)
+    ::License::FileIngestionJob.perform_async(file_id)
   end
 
   def self.generate_license(license_args)

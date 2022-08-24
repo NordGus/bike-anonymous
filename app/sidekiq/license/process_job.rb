@@ -8,7 +8,7 @@ class License::ProcessJob
       create_cyclist_user(cyclist, args["password"], args["email"])
     end
 
-    create_license!(
+    license = create_license!(
       cyclist: cyclist,
       registered_at: args["registered_at"],
       expires_at: args["expires_at"],
@@ -17,6 +17,8 @@ class License::ProcessJob
       last_name: args["last_name"],
       age: args["age"]
     )
+
+    notify_cyclist(cyclist, license)
   end
 
   def find_or_initialize_cyclist_user(username)
@@ -50,5 +52,9 @@ class License::ProcessJob
       last_name: last_name,
       age: age
     )
+  end
+
+  def notify_cyclist(cyclist, license)
+    ::License::CyclistMailer.with(cyclist_id: cyclist.id, license_id: license.id).new_license.deliver_later
   end
 end

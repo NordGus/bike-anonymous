@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       resources :files, only: [] do
         post :ingest, on: :collection
       end
+
+      resources :cyclists, only: :show, defaults: { format: :pdf }
     end
   end
 end
