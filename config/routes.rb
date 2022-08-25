@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       end
 
       resources :cyclists, only: :show, defaults: { format: :pdf }
+
+      resources :reports, only: [] do
+        post :nightly, on: :collection
+      end
     end
   end
 end
