@@ -1,0 +1,17 @@
+cyclist_1_license:
+  cyclist_id: 3
+  registered_at: <%= 1.month.ago.to_fs(:db) %>
+  expires_at: <%= 1.year.from_now.to_fs(:db) %>
+  code: test-license-1
+  first_name: John
+  last_name: Wick
+  age: 40
+
+cyclist_2_license:
+  cyclist_id: 4
+  registered_at: <%= 1.month.ago.to_fs(:db) %>
+  expires_at: <%= 1.year.from_now.to_fs(:db) %>
+  code: test-license-2
+  first_name: John
+  last_name: McClane
+  age: 32
