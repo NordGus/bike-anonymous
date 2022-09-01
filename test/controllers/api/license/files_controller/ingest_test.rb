@@ -32,10 +32,12 @@ class Api::License::FilesController::IngestTest < ActionDispatch::IntegrationTes
     token = login_token(:partner)
     ingestion_file = fixture_file_upload("license/ingestion_file.csv", "text/csv")
 
-    assert_difference "License::IngestionFile.count", 1 do
-      post ingest_api_license_files_path,
-           headers: { "Authorization": "Bearer #{token}" },
-           params: { file: ingestion_file }
+    assert_difference "::License::FileIngestionJob.jobs.length", 1 do
+      assert_difference "License::IngestionFile.count", 1 do
+        post ingest_api_license_files_path,
+             headers: { "Authorization": "Bearer #{token}" },
+             params: { file: ingestion_file }
+      end
     end
 
     assert_response :success

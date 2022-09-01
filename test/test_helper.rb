@@ -21,4 +21,8 @@ class ActiveSupport::TestCase
 
     response.parsed_body["jwt"]
   end
+
+  def teardown
+    Sidekiq::Worker.clear_all
+  end
 end
