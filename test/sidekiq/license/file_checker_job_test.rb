@@ -30,7 +30,7 @@ class License::FileCheckerJobTest < ActiveSupport::TestCase
   private
 
   def invalid_ingestion_file
-    @invalid_ingestion_file = ::License::IngestionFile.create!(
+    @invalid_ingestion_file ||= ::License::IngestionFile.create!(
       uploader: users(:partner),
       file: {
         io: File.open(Rails.root.join("test", "fixtures", "files", "license", "ingestion_file.csv")),
@@ -41,7 +41,7 @@ class License::FileCheckerJobTest < ActiveSupport::TestCase
   end
 
   def valid_ingestion_file
-    @valid_ingestion_file = ::License::IngestionFile.create!(
+    @valid_ingestion_file ||= ::License::IngestionFile.create!(
       uploader: users(:partner),
       file: {
         io: File.open(Rails.root.join("test", "fixtures", "files", "license", "processed_ingestion_file.csv")),
