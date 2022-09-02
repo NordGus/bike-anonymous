@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 owner:
+  id: 1
   username: BikesAnonymous
   password_digest: <%= BCrypt::Password.create("secret") %>
   email: owner@ba.com
@@ -8,6 +9,7 @@ owner:
   token_version: 4
 
 partner:
+  id: 2
   username: PartnerCenter
   password_digest: <%= BCrypt::Password.create("secret") %>
   email: partner@center.com
@@ -15,6 +17,7 @@ partner:
   token_version: 42
 
 cyclist_1:
+  id: 3
   username: Cyclist1
   password_digest: <%= BCrypt::Password.create("secret") %>
   email: cyclist1@example.com
@@ -22,6 +25,7 @@ cyclist_1:
   token_version: 17
 
 cyclist_2:
+  id: 4
   username: Cyclist2
   password_digest: <%= BCrypt::Password.create("secret") %>
   email: cyclist2@example.com

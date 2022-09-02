@@ -39,6 +39,4 @@ class Authentication::Token
       iat: DateTime.now.to_i
     }
   end
-
-  class InvalidTokenError < StandardError; end
 end

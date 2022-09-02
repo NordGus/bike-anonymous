@@ -19,3 +19,12 @@ gem 'prawn', '~> 2.4'
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
+
+group :development do
+  gem 'rubocop', '~> 1.36', require: false
+end
+
+group :test do
+  gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'simplecov', require: false
+end

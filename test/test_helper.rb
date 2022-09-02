@@ -1,6 +1,10 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "sidekiq/testing"
+require 'simplecov'
+
+SimpleCov.start
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -19,5 +23,9 @@ class ActiveSupport::TestCase
          }
 
     response.parsed_body["jwt"]
+  end
+
+  def teardown
+    Sidekiq::Worker.clear_all
   end
 end

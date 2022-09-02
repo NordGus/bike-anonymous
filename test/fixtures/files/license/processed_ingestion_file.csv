@@ -1,0 +1,2 @@
+Username,Password,Role,LicenseRegistrationDate,LicenseExpirationDate,LicenseCode,FirstName,LastName,Age,Email
+Cyclist1,supersecret,CYCLIST,07/01/2022 05:00,07/02/2022 05:00,test-license-1,John,Wick,40,gustavo@example.com
