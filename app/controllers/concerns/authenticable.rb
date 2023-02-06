@@ -27,7 +27,7 @@ module Authenticable
 
   def current_user
     @current_user ||= begin
-      encoded_token = request.headers['Authorization']&.split('Bearer ')&.last
+      encoded_token = request.headers["Authorization"]&.split("Bearer ")&.last
       decoded_token = ::Authentication::Token.decode(encoded_token)
 
       user = User.find(decoded_token[:payload][:id])
