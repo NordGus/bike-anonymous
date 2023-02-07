@@ -22,6 +22,7 @@ end
 
 group :development do
   gem "rubocop", "~> 1.36", require: false
+  gem "ruby-debug-ide", "~> 0.7.3"
 end
 
 group :test do

@@ -7,7 +7,9 @@ services:
     volumes:
       - .:/var/app
     ports:
+      - "1234:1234"
       - "3000:3000"
+      - "26162:26162"
     environment:
       BIKES_ANONYMOUS_DATABASE_USERNAME: bikes_anonymous
       BIKES_ANONYMOUS_DATABASE_PASSWORD: localdev
