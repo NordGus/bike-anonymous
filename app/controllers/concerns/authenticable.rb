@@ -28,11 +28,12 @@ module Authenticable
   def current_user
     @current_user ||= begin
       encoded_token = request.headers["Authorization"]&.split("Bearer ")&.last
-      decoded_token = ::Authentication::Token.decode(encoded_token)
+      decoder = ::Authentication::TokenDecoder.new(encoded_token)
+      decoder.decode
 
-      user = User.find(decoded_token[:payload][:id])
+      user = User.find(decoder.payload[:id])
 
-      raise StandardError, "invalid token" unless user.token_version == decoded_token[:payload][:token_version]
+      raise StandardError, "invalid token" unless user.token_version == decoder.payload[:token_version]
 
       user
     end

@@ -1,4 +1,4 @@
-class Authentication::Token
+class Authentication::TokenGenerator
   SECRET = Rails.application.credentials.jwt_secret.freeze
   JWT_ALGORITHM = 'HS256'.freeze
   JWT_EXPIRATION = 5.minutes.freeze
@@ -22,12 +22,6 @@ class Authentication::Token
       SECRET,
       JWT_ALGORITHM
     )
-  end
-
-  def self.decode(token)
-    decoded = JWT.decode(token, SECRET, true, { algorithm: JWT_ALGORITHM })
-
-    { payload: decoded[0].symbolize_keys, headers: decoded[1].symbolize_keys }
   end
 
   private

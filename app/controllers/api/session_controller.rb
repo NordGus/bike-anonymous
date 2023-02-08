@@ -9,7 +9,7 @@ class Api::SessionController < ApplicationController
     head(:unauthorized) and return unless user.present?
     head(:unauthorized) and return unless user.authenticate(params[:password])
 
-    token = ::Authentication::Token.new(user)
+    token = ::Authentication::TokenGenerator.new(user)
     session[:jid] = token.session_token
 
     render json: { jwt: token.authentication_token }, status: :ok
@@ -24,12 +24,14 @@ class Api::SessionController < ApplicationController
   end
 
   def refresh
-    decoded_token = ::Authentication::Token.decode(session[:jid])
-    user = User.find(decoded_token[:payload][:id])
+    decoder = ::Authentication::TokenDecoder.new(session[:jid])
+    decoder.decode
 
-    head(:unauthorized) and return unless user.token_version == decoded_token[:payload][:token_version]
+    user = User.find(decoder.payload[:id])
 
-    token = ::Authentication::Token.new(user)
+    head(:unauthorized) and return unless user.token_version == decoder.payload[:token_version]
+
+    token = ::Authentication::TokenGenerator.new(user)
 
     render json: { jwt: token.authentication_token }, status: :ok
   rescue => e
