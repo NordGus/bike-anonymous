@@ -20,17 +20,15 @@ class License::FileIngestionJob
   def process_file(ingestion_file)
     CSV.parse(ingestion_file.file.download, headers: true) do |row|
       ::License::Scheduler.generate_license(
-        {
-          username: row["Username"],
-          password: row["Password"],
-          email: row["Email"],
-          registered_at: row["LicenseRegistrationDate"],
-          expires_at: row["LicenseExpirationDate"],
-          code: row["LicenseCode"],
-          first_name: row["FirstName"],
-          last_name: row["LastName"],
-          age: row["Age"]
-        }
+        row["Username"],
+        row["Password"],
+        row["Email"],
+        row["LicenseRegistrationDate"],
+        row["LicenseExpirationDate"],
+        row["LicenseCode"],
+        row["FirstName"],
+        row["LastName"],
+        row["Age"]
       )
     end
   end
